@@ -1,0 +1,25 @@
+{
+  "name": "infusionsoft-api",
+  "version": "0.0.1",
+  "description": "Javscript wrapper for the Infusionsoft API",
+  "main": "index.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:bvalosek/infusionsoft-api"
+  },
+  "keywords": [
+    "infusionsoft",
+    "api"
+  ],
+  "author": "Brandon Valosek",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bvalosek/infusionsoft-api/issues"
+  },
+  "dependencies": {
+    "typedef": "~0.13.2"
+  }
+}
