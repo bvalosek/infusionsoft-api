@@ -1,7 +1,6 @@
 # Infusionsoft API
 
-Javascript wrapper for the Infusionsoft API. Works on the client or the server
-via Node.js.
+A promise-driven Node.js wrapper for the XML-RPC Infusionsoft API.
 
 ## License
 Copyright 2013 Brandon Valosek
