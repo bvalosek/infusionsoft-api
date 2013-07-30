@@ -28,13 +28,11 @@ function getServiceInterface(href)
 
         // fill out with method name
         $('.full_method').each(function() {
-            var $el = $(this);
-
+            var $el        = $(this);
             var collection = $el.find('.collection').text().replace('.','').trim();
             var method     = $el.find('.method').text().trim();
 
             methods.push({ methodName: method, params: [] });
-
         });
 
         // now params
