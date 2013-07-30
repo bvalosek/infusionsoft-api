@@ -23,6 +23,11 @@
     "typedef": "~0.13.2",
     "xmlrpc": "~1.1.0",
     "cheerio": "~0.12.0",
-    "request": "~2.25.0"
+    "request": "~2.25.0",
+    "underscore": "~1.5.1",
+    "wordwrap": "0.0.2"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1"
   }
 }
