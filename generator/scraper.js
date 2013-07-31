@@ -4,6 +4,7 @@ var Q       = require('q');
 var _       = require('underscore');
 
 var DOC_URL = 'http://help.infusionsoft.com';
+var TABLE_URL = 'http://developers.infusionsoft.com/dbDocs';
 
 module.exports = scraper = {
 
@@ -39,6 +40,61 @@ module.exports = scraper = {
                 return _(arguments).toArray();
             });
 
+        });
+    },
+
+    // Load all the tables up
+    scrapeTables: function(url)
+    {
+        url = url || TABLE_URL;
+
+        return Q.nfcall(request, url + '/index.html').then(function(data) {
+            console.log('tables page loaded');
+
+            var $        = cheerio.load(data);
+            var list     = $('#tables li');
+            var requests = [];
+
+            list.each(function() {
+                var $this       = this;
+                var title       = $this.find('a').text();
+                var link        = $this.find('a').attr('href');
+
+                requests.push(scraper.getTableFields(TABLE_URL + '/' + link));
+
+            });
+
+            return Q.spread(requests, function() {
+                console.log('all tables loaded');
+                return _(arguments).toArray();
+            });
+
+        });
+    },
+
+    // Scrape the actual table page to get the individiual fields
+    getTableFields: function(tableUrl)
+    {
+        return Q.nfcall(request, tableUrl).then(function(data) {
+            var $     = cheerio.load(data);
+            var title = $('h2').first().text();
+            var $rows = $('table tr');
+
+            var ret = {
+                tableName: title,
+                fields: []
+            };
+
+            $rows.each(function() {
+                var $row = $(this);
+                var name = $row.find('td').first().text();
+
+                if (!name) return;
+
+                ret.fields.push(name);
+            });
+
+            return ret;
         });
     },
 
