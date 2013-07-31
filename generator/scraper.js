@@ -47,10 +47,9 @@ module.exports = scraper = {
     getServiceInterface: function(href)
     {
         return Q.nfcall(request, href).then(function(data) {
-            var $           = cheerio.load(data);
-            var serviceName = $('.content h1').text().replace(' API', '').trim();
-
-            var serviceDescription = $('.content').next('p').text();
+            var $                  = cheerio.load(data);
+            var serviceName        = $('.content h1').text().replace(' API', '').trim();
+            var serviceDescription = $('h1').nextAll('p').first().text();
 
             console.log(serviceName + ' page loaded');
 
@@ -65,7 +64,9 @@ module.exports = scraper = {
                 var $el        = $(this);
                 var collection  = $el.find('.collection').text().replace('.','').trim();
                 var method      = $el.find('.method').text().trim();
-                var description = $el.next('p').text();
+                var description = $el.nextAll('p').first().text();
+
+                ret.serviceName = collection;
 
                 ret.methods.push({ name: method, description: description, params: [] });
             });
@@ -86,7 +87,7 @@ module.exports = scraper = {
                 // iterate over all the paramters
                 $(this).find('tbody tr').each(function() {
                     var td = $(this).find('td').first().text().trim();
-                    if (td != 'Key' && td != 'privateKey')
+                    if (td != 'Key' && td != 'privateKey' && td != 'key')
                         node.params.push(td);
                 });
             });
