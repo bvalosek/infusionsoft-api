@@ -1,6 +1,6 @@
 # Infusionsoft API
 
-A promise-driven, fluent-style Node.js wrapper for the XML-RPC Infusionsoft API.
+A promise-driven, fluent-style Node.js wrapper for the XML-RPC [Infusionsoft API](http://help.infusionsoft.com/developers/api-basics).
 
 Write badass Infusionsoft apps on the server that are fully and natively asynchronous.
 
