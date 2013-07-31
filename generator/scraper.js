@@ -59,37 +59,26 @@ module.exports = scraper = {
                 methods: []
             };
 
-            // method name
+            // Extract method information
             $('.full_method').each(function() {
-                var $el        = $(this);
+                var $el         = $(this);
                 var collection  = $el.find('.collection').text().replace('.','').trim();
                 var method      = $el.find('.method').text().trim();
                 var description = $el.nextAll('p').first().text();
+                var $table      = $el.nextAll('table.table-striped').first();
 
                 ret.serviceName = collection;
 
-                ret.methods.push({ name: method, description: description, params: [] });
-            });
-
-            // now params
-            var index = 0;
-            $('table.table-striped').each(function() {
-                var node = ret.methods[index++];
-
-                if (!node)
-                    return;
-
-                // see if its the correct kind of table
-                var headers = $(this).find('thead tr th');
-                if (headers.length != 3)
-                    return;
+                var methodInfo = { name: method, description: description, params: [] };
 
                 // iterate over all the paramters
-                $(this).find('tbody tr').each(function() {
+                $table.find('tbody tr').each(function() {
                     var td = $(this).find('td').first().text().trim();
                     if (td != 'Key' && td != 'privateKey' && td != 'key')
-                        node.params.push(td);
+                        methodInfo.params.push(td);
                 });
+
+                ret.methods.push(methodInfo);
             });
 
             return ret;
