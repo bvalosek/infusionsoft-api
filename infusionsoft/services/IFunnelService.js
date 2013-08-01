@@ -10,6 +10,6 @@ module.exports = IFunnelService = require('typedef')
 .interface('IFunnelService') .implements(IService) .define({
 
     // Returns the result of a goal being achieved.
-    __xmlrpc__achieveGoal: function(Integration, Call Name, contactId) {}
+    __xmlrpc__achieveGoal: function(Integration, CallName, contactId) {}
 
 });
