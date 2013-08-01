@@ -5,7 +5,7 @@ var _       = require('underscore');
 var fs      = require('fs');
 var wordwrap = require('wordwrap');
 
-scraper.scrapeDocs().then(function(apiDocs) {
+module.exports = scraper.scrapeDocs().then(function(apiDocs) {
     var files = {};
 
     apiDocs.forEach(function(info) {

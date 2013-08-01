@@ -2,7 +2,7 @@ var scraper = require('./scraper');
 var _       = require('underscore');
 var fs      = require('fs');
 
-scraper.scrapeTables().done(function(tables) {
+module.exports = scraper.scrapeTables().then(function(tables) {
 
     var files = {};
 
