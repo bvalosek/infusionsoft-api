@@ -19,6 +19,9 @@ scraper.scrapeTables().done(function(tables) {
         code += '\n.class(\'' + className + '\') .extends(Table) .define({\n';
 
         table.fields.forEach(function(field, index) {
+            if (field.indexOf('.') != -1)
+                return;
+
             if (index)
                 code += ',\n';
 

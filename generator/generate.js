@@ -72,7 +72,9 @@ scraper.scrapeDocs().then(function(apiDocs) {
 function normalizeParam(s)
 {
     var m = s.match(/(.*)\s+\(optional\)$/);
-    if (!m)
-        return s;
-    return '_' + m[1];
+
+    if (m)
+        s = '_' + m[1];
+
+    return s.replace(' ', '');
 }
