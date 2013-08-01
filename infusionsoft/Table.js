@@ -11,8 +11,11 @@ module.exports = Table = typedef
     {
         var FIELDS = [];
         _(C.__signature__).each(function(info, key) {
-            if (info.decorations.FIELD)
+            if (info.decorations.FIELD) {
                 FIELDS.push(key);
+                C[key] = key;
+
+            }
         });
 
         if (FIELDS.length)
