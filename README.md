@@ -19,19 +19,27 @@ Do cool stuff (like query the infusionsoft tables directly)
 ```
 var DataContext = require('infusionsoft-api/DataContext');
 
-var ds = new DataContext('myapp', 'MY_API_KEY');
+var sdk = new DataContext('myapp', 'MY_API_KEY');
 
-ds.Contacts
+sdk.Contacts
     .where('FirstName', 'Brandon')
     .like('LastName', 'V%')
     .orderBy('LastName')
     .descending()
     .take(100)
     .select('Id', 'FirstName', 'LastName', 'Email')
+    .toArray()
     .done(function(result) {
         console.log(result);
     });
 ```
+
+All fields are also static members on the their corresponding class:
+
+```
+sdk.Contacts.where(Contact.Id, 12345).first().done( ... )
+```
+
 
 You can also use the API Services:
 
