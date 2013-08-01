@@ -26,7 +26,8 @@
     "request": "~2.25.0",
     "underscore": "~1.5.1",
     "wordwrap": "0.0.2",
-    "inflection": "~1.2.6"
+    "inflection": "~1.2.6",
+    "moment": "~2.1.0"
   },
   "devDependencies": {
     "grunt": "~0.4.1"
