@@ -70,6 +70,25 @@ node generator/generate
 Likewise, run `node generator/generateTables` to update all of the
 corresponding tables.
 
+## More Examples
+
+All examples use `sdk` as an instantiated DataContext with your app name and API key. ie:
+
+```
+var sdk = new DataContext('myAppName', 'MY_API_KEY');
+```
+
+### Get monthly revenue from a particular month
+
+```
+sdk.Payments
+    .like(Payment.PayDate, '2013-06%')
+    .sum(function(x) { return x.PayAmt; })
+    .done(function(total) {
+        console.log('total revenue: ' + total);
+    });
+```
+
 ## License
 Copyright 2013 Brandon Valosek
 
