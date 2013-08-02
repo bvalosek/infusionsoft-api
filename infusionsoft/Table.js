@@ -7,6 +7,7 @@ module.exports = Table = typedef
 // value scraped from the API docs
 .class('Table') .define({
 
+    // Ensure we can access all of the fields here
     __ondefine__: function(C, hash)
     {
         var FIELDS = [];
