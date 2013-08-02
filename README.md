@@ -24,10 +24,9 @@ var sdk = new DataContext('myapp', 'MY_API_KEY');
 sdk.Contacts
     .where('FirstName', 'Brandon')
     .like('LastName', 'V%')
-    .orderBy('LastName')
-    .descending()
-    .take(100)
     .select('Id', 'FirstName', 'LastName', 'Email')
+    .orderByDescending('LastName')
+    .take(100)
     .toArray()
     .done(function(result) {
         console.log(result);
