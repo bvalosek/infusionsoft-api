@@ -1,1 +1,4 @@
-module.exports = require('./lib/Infusionsoft');
+module.exports = {
+    DataContext: require('./lib/DataContext'),
+    api: require('./infusionsoft/api')
+};

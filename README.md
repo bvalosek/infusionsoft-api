@@ -17,11 +17,11 @@ $ npm install infusionsoft-api
 Do cool stuff:
 
 ```
-var DataContext = require('infusionsoft-api/DataContext');
+var api = require('infusionsoft-api');
 
-var sdk = new DataContext('myapp', 'MY_API_KEY');
+var infusionsoft = new api.DataContext('myapp', 'MY_API_KEY');
 
-sdk.Contacts
+infusionsoft.Contacts
     .where(Contact.FirstName, 'Brandon')
     .like(Contact.LastName, 'V%')
     .select(Contact.Id, Contact.Email)
@@ -36,7 +36,7 @@ sdk.Contacts
 You can also use the API Services directly:
 
 ```
-ds.ContactService
+infusionsoft.ContactService
     .findByEmail('brandon@aol.com', ['Id', 'FirstName', 'LastName']);
 ```
 
@@ -77,16 +77,17 @@ the generated files for easy use.
 
 ## More Examples
 
-All examples use `sdk` as an instantiated DataContext with your app name and API key. ie:
+All examples use `infusionsoft` as an instantiated DataContext with your app
+name and API key. ie:
 
 ```
-var sdk = new DataContext('myAppName', 'MY_API_KEY');
+var infusionsoft = new api.DataContext('myAppName', 'MY_API_KEY');
 ```
 
 ### Get monthly revenue from a particular month
 
 ```
-sdk.Payments
+infusionsoft.Payments
     .like(Payment.PayDate, '2013-06%')
     .sum(function(x) { return x.PayAmt; })
     .done(function(total) {
@@ -99,10 +100,10 @@ sdk.Payments
 And an example of using the `fail` method to catch any problems.
 
 ```
-sdk.DataService
+infusionsoft.DataService
     .authenticateUser('user@email.com', 'md5-hash-of-password')
     .then(function(userId) {
-        return sdk.Users.where(User.Id, userId).first();
+        return infusionsoft.Users.where(User.Id, userId).first();
     })
     .then(function(user) {
         console.log('Hello ' + user.FirstName + ' ' + user.LastName);
@@ -117,7 +118,7 @@ sdk.DataService
 Uses [underscore](http://underscorejs.org/).
 
 ```
-sdk.Invoices
+infusionsoft.Invoices
     .like(Invoice.DateCreated, '2013-08%')
     .groupBy(function(x) { return x.ProductSold; })
     .done(function(result) {
@@ -134,8 +135,8 @@ and the `Invoice` table will actually fire off at the same time.
 Hashtag asynchronous.
 
 ```
-var products = sdk.Products.toArray();
-var invoices = sdk.Invoices
+var products = infusionsoft.Products.toArray();
+var invoices = infusionsoft.Invoices
     .like(Invoice.DateCreated, '2013-08%')
     .groupBy(function(x) { return x.ProductSold; });
 
