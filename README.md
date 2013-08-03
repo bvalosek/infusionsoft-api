@@ -88,6 +88,24 @@ sdk.Payments
     });
 ```
 
+### Login a user and get their info
+
+And an example of using the `fail` method to catch any problems
+
+```
+sdk.DataService
+    .authenticateUser('user@email.com', 'md5-hash-of-password')
+    .then(function(userId) {
+        return sdk.Users.where(User.Id, userId).first();
+    })
+    .then(function(user) {
+        console.log('Hello ' + user.FirstName + ' ' + user.LastName);
+    })
+    .fail(function(err) {
+        console.log('uh oh: ' + err);
+    });
+```
+
 ## License
 Copyright 2013 Brandon Valosek
 
