@@ -127,6 +127,30 @@ sdk.Invoices
     });
 ```
 
+Same as above, but use the `spread` function to wait on 2 promises to get the
+corresponding product names. The API hits for querying both the `Product` table
+and the `Invoice` table will actually fire off at the same time.
+
+Hashtag asynchronous.
+
+```
+var products = sdk.Products.toArray();
+var invoices = sdk.Invoices
+    .like(Invoice.DateCreated, '2013-08%')
+    .groupBy(function(x) { return x.ProductSold; });
+
+Q.spread([products, invoices], function(products, invoices) {
+   _(invoices).each(function(invoices, productId)  {
+        var productName = _(products)
+            .find(function(x) { return x.Id == productId; })
+            .ProductName;
+
+        console.log(productName, invoices.length);
+   });
+});
+```
+
+
 ## License
 Copyright 2013 Brandon Valosek
 
