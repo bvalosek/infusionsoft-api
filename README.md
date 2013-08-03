@@ -14,7 +14,7 @@ Install via `npm`:
 $ npm install infusionsoft-api
 ```
 
-Do cool stuff (like query the infusionsoft tables directly)
+Do cool stuff:
 
 ```
 var DataContext = require('infusionsoft-api/DataContext');
@@ -22,9 +22,9 @@ var DataContext = require('infusionsoft-api/DataContext');
 var sdk = new DataContext('myapp', 'MY_API_KEY');
 
 sdk.Contacts
-    .where('FirstName', 'Brandon')
-    .like('LastName', 'V%')
-    .select('Id', 'FirstName', 'LastName', 'Email')
+    .where(Contact.FirstName, 'Brandon')
+    .like(Contact.LastName, 'V%')
+    .select(Contact.Id, Contact.Email)
     .orderByDescending('LastName')
     .take(100)
     .toArray()
@@ -33,14 +33,7 @@ sdk.Contacts
     });
 ```
 
-All fields are also static members on the their corresponding class:
-
-```
-sdk.Contacts.where(Contact.Id, 12345).first().done( ... )
-```
-
-
-You can also use the API Services:
+You can also use the API Services directly:
 
 ```
 ds.ContactService
@@ -48,6 +41,16 @@ ds.ContactService
 ```
 
 Awesome.
+
+## Promises
+
+All asynchronous methods return a [Promise](https://github.com/kriskowal/q)
+that represents the eventual value that will be returned.
+
+Promises are glorious and make writing heavily asynchronous code much less
+awful than it would otherwise be.
+
+See the **More Examples** section to see them in action.
 
 
 ## API Scraper
@@ -68,6 +71,9 @@ node generator/generate
 
 Likewise, run `node generator/generateTables` to update all of the
 corresponding tables.
+
+Finally, run `node generator/generateApi` to create a file that `require`s all
+the generated files for easy use.
 
 ## More Examples
 
@@ -90,7 +96,7 @@ sdk.Payments
 
 ### Login a user and get their info
 
-And an example of using the `fail` method to catch any problems
+And an example of using the `fail` method to catch any problems.
 
 ```
 sdk.DataService
@@ -103,6 +109,21 @@ sdk.DataService
     })
     .fail(function(err) {
         console.log('uh oh: ' + err);
+    });
+```
+
+### Get all invoices for a specific month, grouped by product
+
+Uses [underscore](http://underscorejs.org/).
+
+```
+sdk.Invoices
+    .like(Invoice.DateCreated, '2013-08%')
+    .groupBy(function(x) { return x.ProductSold; })
+    .done(function(result) {
+        _(result).each(function(invoices, productId) {
+            console.log(productId, invoices.length);
+        });
     });
 ```
 
