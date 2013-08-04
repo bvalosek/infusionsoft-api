@@ -151,6 +151,25 @@ Q.spread([products, invoices], function(products, invoices) {
 });
 ```
 
+### From an email address, get a contact's tags
+
+```
+sdk.Contacts
+    .where(Contact.Email, 'some@email.com')
+    .first()
+    .then(function(contact) {
+        return sdk.ContactGroupAssigns
+            .where(ContactGroupAssign.ContactId, contact.Id)
+            .toArray();
+    })
+    .then(function(cgas) {
+        cgas.forEach(function(group) {
+            console.log(group.ContactGroup, group.DateCreated);
+        });
+    });
+```
+
+
 
 ## License
 Copyright 2013 Brandon Valosek
