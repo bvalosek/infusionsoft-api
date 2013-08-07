@@ -16,7 +16,7 @@ $ npm install infusionsoft-api
 
 Do cool stuff:
 
-```
+```javascript
 var api = require('infusionsoft-api');
 
 var infusionsoft = new api.DataContext('myapp', 'MY_API_KEY');
@@ -35,7 +35,7 @@ infusionsoft.Contacts
 
 You can also use the API Services directly:
 
-```
+```javascript
 infusionsoft.ContactService
     .findByEmail('brandon@aol.com', ['Id', 'FirstName', 'LastName']);
 ```
@@ -80,13 +80,13 @@ the generated files for easy use.
 All examples use `infusionsoft` as an instantiated DataContext with your app
 name and API key. ie:
 
-```
+```javascript
 var infusionsoft = new api.DataContext('myAppName', 'MY_API_KEY');
 ```
 
 ### Get monthly revenue from a particular month
 
-```
+```javascript
 infusionsoft.Payments
     .like(Payment.PayDate, '2013-06%')
     .sum(function(x) { return x.PayAmt; })
@@ -99,7 +99,7 @@ infusionsoft.Payments
 
 And an example of using the `fail` method to catch any problems.
 
-```
+```javascript
 infusionsoft.DataService
     .authenticateUser('user@email.com', 'md5-hash-of-password')
     .then(function(userId) {
@@ -117,7 +117,7 @@ infusionsoft.DataService
 
 Uses [underscore](http://underscorejs.org/).
 
-```
+```javascript
 infusionsoft.Invoices
     .like(Invoice.DateCreated, '2013-08%')
     .groupBy(function(x) { return x.ProductSold; })
@@ -134,7 +134,7 @@ and the `Invoice` table will actually fire off at the same time.
 
 Hashtag asynchronous.
 
-```
+```javascript
 var products = infusionsoft.Products.toArray();
 var invoices = infusionsoft.Invoices
     .like(Invoice.DateCreated, '2013-08%')
@@ -153,7 +153,7 @@ Q.spread([products, invoices], function(products, invoices) {
 
 ### From an email address, get a contact's tags
 
-```
+```javascript
 sdk.Contacts
     .where(Contact.Email, 'some@email.com')
     .first()
@@ -184,7 +184,7 @@ Syntax (stolen from C#'s LINQ):
 Let's do this:
 
 
-```
+```javascript
 var pc    = infusionsoft.ProductCategories;
 var pca   = infusionsoft.ProductCategoryAssigns;
 var plans = infusionsoft.SubscriptionPlans;
