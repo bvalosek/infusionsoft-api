@@ -169,6 +169,61 @@ sdk.Contacts
     });
 ```
 
+### Get the full Product Category Name for all subscription plans
+
+Okay, take a deep breath. We can do (inner) joins. We fake it though... the
+`inner` part of the join has to be loaded entirely and then we do a `O(n^2)`
+iteration to make it, but we can still do it. If the `inner` is cheap, this
+isn't too bad. Especially when the SDK will handle loading, paging, waiting,
+etc... all for you.
+
+Syntax (stolen from C#'s LINQ):
+
+### `join` (`innerQueryable`, `outerKey`, `innerKey`, `selectorFn`)
+
+Let's do this:
+
+
+```
+var pc    = infusionsoft.ProductCategories;
+var pca   = infusionsoft.ProductCategoryAssigns;
+var plans = infusionsoft.SubscriptionPlans;
+
+// Join the categories onto itself for creating the full category name
+// (category parent name + category name)
+var categories = pc
+    .join(pc, 'ParentId', 'Id', function(pc, parent) {
+        return {
+            Id: pc.Id,
+            Name: parent.CategoryDisplayName + ' ' + pc.CategoryDisplayName
+        }; });
+
+var subPlans = plans
+
+    // Join the sub plan (which only has product Id) onto the PCA table to get
+    // the product category ID
+    .join(pca, 'ProductId', 'ProductId', function(plan, pca) {
+        plan.ProductCategoryId = pca.ProductCategoryId;
+        return plan;
+    })
+
+
+    // Join our categories object we made above onto the projection from the
+    // most recent join to get the full category name + subscription plan Id
+    .join(categories, 'ProductCategoryId', 'Id', function(plan, category) {
+        return { planId: plan.Id, category: category.Name }; });
+
+subPlans.toArray().done(function(d) { console.log(d); });
+```
+
+What happens magically behind the scenes is pretty nice. When we call
+`toArray()` at the end, we first query the SubscriptionPlan table (aliased as
+`plans`). It then knows we need to join the `ProductCategoryAssign` table on
+there, so it fetches that (which may be more than one page). It finally gets
+the `ProductCategory` table (in its entirety), and joins them all up.
+
+The syntax looks nasty, but that is somewhat unavoidable with a `join`
+function.
 
 
 ## License
