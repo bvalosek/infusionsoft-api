@@ -25,7 +25,6 @@ module.exports = function(grunt) {
 
     // tasks
     grunt.registerTask('lint', ['jshint']);
-    grunt.registerTask('build', ['infusionsoft']);
-    grunt.registerTask('default', ['build']);
+    grunt.registerTask('default', ['lint']);
 
 };
