@@ -7,7 +7,8 @@ module.exports = function(grunt) {
 
         jshint: {
             lib: ['lib/**/*.js'],
-            grunt: ['Gruntfile.js']
+            grunt: ['Gruntfile.js'],
+            infusionsoft: ['infusionsoft/**/*.js']
         },
 
         // Output all stuff to the IS folder
