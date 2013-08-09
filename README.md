@@ -55,25 +55,11 @@ See the **More Examples** section to see them in action.
 
 ## API Scraper
 
-Included is a Node app that will scrape the Infusionsoft API documentation and
-update the interfaces in the `infusionsoft` directory. This allows for the
-XML-RPC interfaces to be updated as Infusionsoft updates their docs.
+This project creates interfaces and classes for the API services and tables via
+the [grunt-infusionsoft](http://github.com/bvalosek/grunt-infusionsoft) grunt
+plugin. To recreate the generated files, run `grunt infusionsoft`.
 
-This is a double-edged sword; any issues with their documentation will result
-in issues with this API wrapper.
-
-To update the auto-generated interfaces for the various API services
-(DataService, ContactService, etc), run the `generate` script manually
-
-```
-node generator/generate
-```
-
-Likewise, run `node generator/generateTables` to update all of the
-corresponding tables.
-
-Finally, run `node generator/generateApi` to create a file that `require`s all
-the generated files for easy use.
+Check out the `infusionsoft` directory to see the output.
 
 ## More Examples
 
