@@ -23,7 +23,8 @@
     "typedef": "~0.13.2",
     "xmlrpc": "~1.1.0",
     "underscore": "~1.5.1",
-    "q": "~0.9.6"
+    "q": "~0.9.6",
+    "inflection": "~1.2.6"
   },
   "devDependencies": {
     "grunt-contrib-jshint": "~0.6.2",
