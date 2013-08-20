@@ -1,6 +1,6 @@
 {
   "name": "infusionsoft-api",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Javscript wrapper for the Infusionsoft API",
   "main": "index.js",
   "scripts": {
