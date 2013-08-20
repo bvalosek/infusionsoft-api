@@ -28,6 +28,6 @@
   },
   "devDependencies": {
     "grunt-contrib-jshint": "~0.6.2",
-    "grunt-infusionsoft": "~0.5.0"
+    "grunt-infusionsoft": "~0.6.0"
   }
 }
