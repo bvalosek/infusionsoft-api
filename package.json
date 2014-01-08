@@ -28,6 +28,6 @@
   },
   "devDependencies": {
     "grunt-contrib-jshint": "~0.6.2",
-    "grunt-infusionsoft": "~0.6.0"
+    "grunt-infusionsoft": "https://github.com/a2labs/grunt-infusionsoft/archive/master.tar.gz"
   }
 }
