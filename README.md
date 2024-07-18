@@ -19,7 +19,11 @@ Do cool stuff:
 ```javascript
 var api = require('infusionsoft-api');
 
-var infusionsoft = new api.DataContext('myapp', 'MY_API_KEY');
+var infusionsoft = new api.DataContext(
+    {
+		url: 'https://api.infusionsoft.com/crm/xmlrpc',
+		headers: {Authorization: `Bearer ${access_token}`}
+	});
 
 infusionsoft.Contacts
     .where(Contact.FirstName, 'Brandon')
